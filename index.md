@@ -96,11 +96,11 @@
     .title-slide h1 { font-size: 48px; letter-spacing: -1px; line-height: 1.15; }
     .title-slide h1 span { background: linear-gradient(90deg, #38bdf8, #10b981); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .title-slide .lead { font-size: 18px; color: var(--text-muted); max-width: 950px; line-height: 1.55; }
-    .pillars { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 10px; width: 100%; }
-    .pillar-item { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
-    .pillar-item .num { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
-    .pillar-item b { font-size: 14px; color: #fff; display: block; margin-bottom: 4px; }
-    .pillar-item span { font-size: 12px; color: var(--text-muted); line-height: 1.4; display: block; }
+    .pillars { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 10px; width: 100%; }
+    .pillar-item { background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+    .pillar-item .num { font-size: 11.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 3px; }
+    .pillar-item b { font-size: 13.5px; color: #fff; display: block; margin-bottom: 3px; line-height: 1.3; }
+    .pillar-item span { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; display: block; }
 
     /* Timeline Table */
     table.timeline-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; }
@@ -188,35 +188,40 @@
         <span class="badge phase">Giai đoạn 2 · Triển khai Thực tế</span>
       </div>
       <h1>Kế hoạch Phối hợp FPT × APS<br><span>Đưa Trợ lý AI vào App Chứng khoán</span></h1>
-      <p class="lead">Đề xuất lộ trình và các gói công việc phối hợp chiến lược nhằm nâng cấp chất lượng phân tích nghiệp vụ, đấu nối hệ thống kỹ thuật và tích hợp Trợ lý AI trực tiếp vào ứng dụng giao dịch của APS.</p>
+      <p class="lead">Đề xuất lộ trình và các đầu việc phối hợp chiến lược nhằm nâng cấp chất lượng phân tích nghiệp vụ, đấu nối hệ thống kỹ thuật và tích hợp Trợ lý AI trực tiếp vào ứng dụng giao dịch của APS.</p>
       <div class="pillars">
         <div class="pillar-item">
-          <div class="num">Gói 01</div>
+          <div class="num">Việc 01</div>
           <b>Đồng hành BA & Phân tích</b>
           <span>Nâng cao chất lượng câu trả lời & độ sâu phân tích</span>
         </div>
         <div class="pillar-item">
-          <div class="num">Gói 02</div>
+          <div class="num">Việc 02</div>
+          <b>So sánh Đa Model LLM</b>
+          <span>FPT đánh giá chọn model chính xác & văn phong hay nhất</span>
+        </div>
+        <div class="pillar-item">
+          <div class="num">Việc 03</div>
           <b>Chuẩn hóa Nghiệp vụ</b>
           <span>Ranh giới tư vấn, so sánh & chính sách push</span>
         </div>
         <div class="pillar-item">
-          <div class="num">Gói 03</div>
+          <div class="num">Việc 04</div>
           <b>Tích hợp Kỹ thuật</b>
           <span>REST API, Webhook Notification & Auth Token</span>
         </div>
         <div class="pillar-item">
-          <div class="num">Gói 04</div>
+          <div class="num">Việc 05</div>
           <b>Quy trình Môi giới</b>
           <span>Tiếp nhận & định tuyến cơ hội chăm sóc khách</span>
         </div>
         <div class="pillar-item">
-          <div class="num">Gói 05</div>
+          <div class="num">Việc 06</div>
           <b>Mở rộng Kho tri thức</b>
           <span>Margin, Trái phiếu Abond, Asavings & BCTC</span>
         </div>
       </div>
-    `, "Mở đầu: Sau khi nghiệm thu thành công bản PoC với 17 kịch bản tính năng, đây là bản đề xuất kế hoạch hành động cụ thể để hai bên đưa bot vào phục vụ khách hàng thật trên app chứng khoán của APS.").classList.add("title-slide");
+    `, "Mở đầu: Sau khi nghiệm thu thành công bản PoC với 17 kịch bản tính năng, đây là bản đề xuất kế hoạch hành động cụ thể với 6 đầu việc phối hợp để đưa bot vào phục vụ khách hàng thật trên app chứng khoán của APS.").classList.add("title-slide");
 
     // SLIDE 2: MỤC TIÊU CHUYỂN DỊCH
     addSlide(`
@@ -249,45 +254,50 @@
       </div>
     `, "Nhấn mạnh với lãnh đạo APS: PoC đã chứng minh năng lực lõi (xử lý tiếng Việt, không bịa số, kiểm duyệt an toàn). Giai đoạn 2 là gắn động cơ AI này vào cỗ máy kinh doanh của APS để tạo đột phá cạnh tranh.");
 
-    // SLIDE 3: MA TRẬN 5 GÓI CÔNG VIỆC
+    // SLIDE 3: MA TRẬN 6 ĐẦU VIỆC PHỐI HỢP
     addSlide(`
       <div class="slide-header">
         <div class="badges"><span class="badge">Phân công Phối hợp</span></div>
         <h2 class="slide-title">Ma trận Phân nhiệm FPT × APS (RACI Matrix)</h2>
-        <p class="slide-subtitle">Rõ ràng trách nhiệm giữa hai bên để đảm bảo tiến độ triển khai nhanh nhất, không giẫm chân lên nhau.</p>
+        <p class="slide-subtitle">Rõ ràng trách nhiệm giữa hai bên cho 6 đầu việc trọng tâm để đảm bảo tiến độ triển khai nhanh và chuẩn xác nhất.</p>
       </div>
       <div class="card" style="padding:0; overflow:hidden;">
         <table class="timeline-table">
           <thead>
             <tr>
-              <th style="width:25%">Gói công việc</th>
+              <th style="width:25%">Nội dung công việc</th>
               <th style="width:40%">Trách nhiệm chính của FPT</th>
               <th style="width:35%">Trách nhiệm phối hợp của APS</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Gói 1: Đồng hành BA & Phân tích</strong></td>
+              <td><strong>Việc 01: Đồng hành BA & Phân tích</strong></td>
               <td>Thiết kế prompt, cấu trúc đầu ra, hiệu chỉnh mô hình & thuật toán trích xuất insight tài chính.</td>
               <td>Cử BA & Chuyên viên phân tích thẩm định câu trả lời, cung cấp góc nhìn nghiệp vụ & bộ câu hỏi mẫu.</td>
             </tr>
             <tr>
-              <td><strong>Gói 2: Chuẩn hóa Quy tắc Nghiệp vụ</strong></td>
+              <td><strong>Việc 02: So sánh Đa Model LLM</strong></td>
+              <td>Thực hiện benchmark đối đầu các model (GPT-4o, Claude 3.5, Gemini, Llama 3), đo lường độ chính xác & văn phong.</td>
+              <td>Cùng tham gia thẩm định chất lượng hành văn tiếng Việt, phê duyệt lựa chọn model tối ưu.</td>
+            </tr>
+            <tr>
+              <td><strong>Việc 03: Chuẩn hóa Quy tắc Nghiệp vụ</strong></td>
               <td>Hiện thực hóa luật Đèn giao thông, 3 hướng so sánh cổ phiếu và cơ chế chặn tin spam.</td>
               <td>Khối Pháp chế & Nghiệp vụ chốt ranh giới tư vấn, lựa chọn tiêu chí so sánh và duyệt ngưỡng cảnh báo.</td>
             </tr>
             <tr>
-              <td><strong>Gói 3: Tích hợp Kỹ thuật App</strong></td>
+              <td><strong>Việc 04: Tích hợp Kỹ thuật App</strong></td>
               <td>Cung cấp REST API chat streaming, Webhook push sự kiện & module xác thực User Token.</td>
               <td>Nhúng khung chat vào App APS, mở API xác thực JWT và mở API đọc danh mục thực tế.</td>
             </tr>
             <tr>
-              <td><strong>Gói 4: Quy trình Môi giới</strong></td>
+              <td><strong>Việc 05: Quy trình Môi giới</strong></td>
               <td>Xây dựng module chuyển tiếp lead, webhook đẩy sự kiện tư vấn & giao diện xác nhận với khách.</td>
               <td>Nghiên cứu & đề xuất quy trình tiếp nhận (CRM nội bộ, Careby hay phân bổ Broker quản lý).</td>
             </tr>
             <tr>
-              <td><strong>Gói 5: Mở rộng Kho tri thức</strong></td>
+              <td><strong>Việc 06: Mở rộng Kho tri thức</strong></td>
               <td>Vector hóa dữ liệu (Embedding), tối ưu tìm kiếm RAG và trích dẫn chuẩn nguồn tài liệu.</td>
               <td>Cung cấp tài liệu sản phẩm đặc thù (Abond, Asavings, CW) và báo cáo phân tích định kỳ.</td>
             </tr>
@@ -296,10 +306,10 @@
       </div>
     `, "Điểm cốt lõi: FPT đóng vai trò công nghệ và sản phẩm AI; APS đóng vai trò chủ trì nghiệp vụ, dữ liệu nguồn và trải nghiệm khách hàng.");
 
-    // SLIDE 4: GÓI 1 - ĐỒNG HÀNH BA & PHÂN TÍCH
+    // SLIDE 4: VIỆC 01 - ĐỒNG HÀNH BA & PHÂN TÍCH
     addSlide(`
       <div class="slide-header">
-        <div class="badges"><span class="badge">Gói 01 · Đột phá Nghiệp vụ</span></div>
+        <div class="badges"><span class="badge">Việc 01 · Đột phá Nghiệp vụ</span></div>
         <h2 class="slide-title">Đồng hành BA & Chuyên gia Phân tích Chứng khoán APS</h2>
         <p class="slide-subtitle">Đề xuất mời đội ngũ BA và Chuyên viên nghiên cứu phân tích của APS trực tiếp tham gia nâng tầm chất lượng câu trả lời từ mức 'tra cứu thông tin' lên tầm 'tư vấn chuyên sâu sắc sảo'.</p>
       </div>
@@ -331,10 +341,48 @@
       </div>
     `, "Nhấn mạnh: AI chỉ thông minh khi được nuôi dưỡng bằng tri thức của các chuyên gia thực thụ. Đề xuất BA và Nghiệp vụ APS tham gia là chìa khóa để bot có chất riêng của APEC/APS, vượt trội hơn hẳn các bot chung chung trên thị trường.");
 
-    // SLIDE 5: GÓI 2 - CHUẨN HÓA QUY TẮC NGHIỆP VỤ & TƯ VẤN
+    // SLIDE 5: VIỆC 02 - SO SÁNH & ĐÁNH GIÁ ĐA MODEL LLM
     addSlide(`
       <div class="slide-header">
-        <div class="badges"><span class="badge">Gói 02 · Tuân thủ & An toàn</span></div>
+        <div class="badges"><span class="badge">Việc 02 · Công nghệ & Đánh giá</span></div>
+        <h2 class="slide-title">So sánh Đa Model LLM: Tìm Độ chính xác & Văn phong Tối ưu</h2>
+        <p class="slide-subtitle">FPT chủ trì thử nghiệm đối đầu (Benchmark) giữa các dòng mô hình AI tiên tiến nhất hiện nay nhằm chọn ra mô hình có dữ kiện chuẩn xác nhất, văn phong tài chính sắc sảo nhất và chi phí vận hành tối ưu.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="tag-green">Độ tin cậy cốt lõi</div>
+          <h3>1. Độ chính xác Dữ kiện (Grounding)</h3>
+          <ul>
+            <li><span class="dot">•</span> <strong>Không bịa số (0% Hallucination):</strong> Model phải bám sát tuyệt đối dữ kiện tài chính được cung cấp, không tự tiện suy đoán hoặc làm tròn sai lệch con số.</li>
+            <li><span class="dot">•</span> <strong>Tuân thủ Guardrails:</strong> Thử nghiệm khả năng vượt qua bộ lọc số lạ và bộ lọc cụm từ cấm độc lập của hệ thống.</li>
+            <li><span class="dot">•</span> <strong>Các model thử nghiệm:</strong> GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, Llama 3 / Qwen mã nguồn mở.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="tag-purple">Chất lượng diễn đạt</div>
+          <h3>2. Văn phong Tài chính Sắc sảo</h3>
+          <ul>
+            <li><span class="dot">•</span> <strong>Hành văn tiếng Việt tự nhiên:</strong> Diễn đạt gãy gọn, mạch lạc, giàu tính phân tích; loại bỏ hoàn toàn cảm giác dịch máy khô cứng (Google Translate style).</li>
+            <li><span class="dot">•</span> <strong>Bóc tách nguyên nhân sâu sắc:</strong> Biết xâu chuỗi thông tin giữa biến động giá và tin tức vĩ mô, đem lại trải nghiệm như đang trao đổi với chuyên viên phân tích kỳ cựu.</li>
+            <li><span class="dot">•</span> <strong>Khảo sát mù (Blind Test):</strong> Đội ngũ BA/Môi giới APS trực tiếp bình chọn văn phong ưng ý nhất.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="tag-blue">Kinh tế & Hiệu năng</div>
+          <h3>3. Tốc độ & Chi phí Quy mô</h3>
+          <ul>
+            <li><span class="dot">•</span> <strong>Độ trễ thấp (Low Latency):</strong> Tốc độ sinh chữ phản hồi (First Token Latency) dưới 1,5 giây để trải nghiệm chat trên Mobile App không bị gián đoạn.</li>
+            <li><span class="dot">•</span> <strong>Tối ưu chi phí Token:</strong> Đánh giá chi phí vận hành trên mỗi lượt hỏi đáp, giúp APS mở rộng phục vụ hàng trăm ngàn nhà đầu tư với chi phí hiệu quả nhất.</li>
+            <li><span class="dot">•</span> <strong>Sẵn sàng Private/Hybrid:</strong> Đánh giá phương án chạy mô hình mã nguồn mở trên hạ tầng riêng (On-premise) nếu APS yêu cầu.</li>
+          </ul>
+        </div>
+      </div>
+    `, "Nhấn mạnh: FPT chủ động thực hiện bài toán so sánh kỹ thuật này để bảo đảm sản phẩm không bị phụ thuộc vào một nhà cung cấp LLM duy nhất, đồng thời đem lại chất giọng tài chính hay nhất cho khách hàng của APS.");
+
+    // SLIDE 6: VIỆC 03 - CHUẨN HÓA QUY TẮC NGHIỆP VỤ & TƯ VẤN
+    addSlide(`
+      <div class="slide-header">
+        <div class="badges"><span class="badge">Việc 03 · Tuân thủ & An toàn</span></div>
         <h2 class="slide-title">Chuẩn hóa Ranh giới Tư vấn, So sánh & Chính sách Push</h2>
         <p class="slide-subtitle">Rà soát chặt chẽ các ranh giới nghiệp vụ cùng khối Pháp chế & Giám sát tuân thủ của APS trước khi đưa sản phẩm ra đại chúng.</p>
       </div>
@@ -371,10 +419,10 @@
       </div>
     `, "Làm rõ với Pháp chế APS: FPT cung cấp sẵn các chốt chặn an toàn (Guardrails), APS là người nắm quyền quyết định bật/tắt hoặc điều chỉnh ranh giới tư vấn cho phù hợp với định vị thương hiệu.");
 
-    // SLIDE 6: GÓI 3 - TÍCH HỢP KỸ THUẬT & HẠ TẦNG APP
+    // SLIDE 7: VIỆC 04 - TÍCH HỢP KỸ THUẬT & HẠ TẦNG APP
     addSlide(`
       <div class="slide-header">
-        <div class="badges"><span class="badge">Gói 03 · Kiến trúc Kỹ thuật</span></div>
+        <div class="badges"><span class="badge">Việc 04 · Kiến trúc Kỹ thuật</span></div>
         <h2 class="slide-title">Phương án Tích hợp App: REST API + Webhook + Token Auth</h2>
         <p class="slide-subtitle">Thiết kế module hóa tối ưu, giúp đội ngũ Mobile App của APS đấu nối nhanh chóng, bảo mật thông tin tài khoản tuyệt đối và duy trì song song kênh Telegram.</p>
       </div>
@@ -398,10 +446,10 @@
       </div>
     `, "Nhấn mạnh với CTO/Đội kỹ thuật APS: Kiến trúc REST API + Webhook là chuẩn công nghiệp quen thuộc nhất, giảm thiểu tối đa khối lượng công việc cho đội ngũ App của APS.");
 
-    // SLIDE 7: GÓI 4 - ĐẤU NỐI MÔI GIỚI THẬT
+    // SLIDE 8: VIỆC 05 - ĐẤU NỐI MÔI GIỚI THẬT
     addSlide(`
       <div class="slide-header">
-        <div class="badges"><span class="badge">Gói 04 · Kinh doanh & Môi giới</span></div>
+        <div class="badges"><span class="badge">Việc 05 · Kinh doanh & Môi giới</span></div>
         <h2 class="slide-title">Quy trình Chuyển tiếp Khách hàng cho Đội ngũ Broker APS</h2>
         <p class="slide-subtitle">Biến trợ lý AI thành công cụ tạo lead bán hàng đắc lực, tự động phát hiện nhu cầu tư vấn để chuyển giao cho chuyên viên môi giới tiếp quản.</p>
       </div>
@@ -429,10 +477,10 @@
       </div>
     `, "Gửi thông điệp quan trọng tới Giám đốc Khối Môi giới APS: Bot sinh ra để phục vụ môi giới, giúp môi giới lọc trước nhu cầu của khách và trao tận tay môi giới những cơ hội giao dịch nóng nhất.");
 
-    // SLIDE 8: GÓI 5 - MỞ RỘNG KHO TRI THỨC APEC
+    // SLIDE 9: VIỆC 06 - MỞ RỘNG KHO TRI THỨC APEC
     addSlide(`
       <div class="slide-header">
-        <div class="badges"><span class="badge">Gói 05 · Cơ sở Tri thức</span></div>
+        <div class="badges"><span class="badge">Việc 06 · Cơ sở Tri thức</span></div>
         <h2 class="slide-title">Chuẩn hóa & Mở rộng Kho Tri thức Sản phẩm APEC</h2>
         <p class="slide-subtitle">Mở rộng cơ sở dữ liệu tri thức RAG từ các thông tin chung sang toàn bộ hệ sinh thái sản phẩm tài chính chuyên biệt của APEC.</p>
       </div>
@@ -460,7 +508,7 @@
       </div>
     `, "Khẳng định: Năng lực RAG của FPT đã hoàn thiện 100% về mặt công nghệ (có bộ chặn số lạ, trích dẫn link nguồn). Khi APS rót thêm tài liệu sản phẩm độc quyền, bot sẽ lập tức giải đáp vanh vách mọi chính sách của công ty.");
 
-    // SLIDE 9: KẾ HOẠCH TRIỂN KHAI & HÀNH ĐỘNG
+    // SLIDE 10: KẾ HOẠCH TRIỂN KHAI & HÀNH ĐỘNG
     addSlide(`
       <div class="slide-header">
         <div class="badges"><span class="badge">Lộ trình Thực thi</span></div>
@@ -478,9 +526,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Tuần 1 – 2<br><span style="color:var(--accent)">Chuẩn bị & Rà soát</span></strong></td>
-              <td>• BA & Chuyên gia APS tham gia rà soát câu trả lời, thiết kế prompt.<br>• Pháp chế chốt ranh giới tư vấn & tiêu chí so sánh mã.<br>• Thống nhất tài liệu API Core Trading & cơ chế Auth JWT.</td>
-              <td>• Bộ Prompt & Quy tắc nghiệp vụ được duyệt.<br>• Tài liệu đặc tả API integration FPT-APS.</td>
+              <td><strong>Tuần 1 – 2<br><span style="color:var(--accent)">Chuẩn bị & Đánh giá</span></strong></td>
+              <td>• FPT thực hiện benchmark so sánh các model LLM (độ chính xác & văn phong).<br>• BA & Chuyên gia APS rà soát câu trả lời, thiết kế prompt.<br>• Pháp chế chốt ranh giới tư vấn & tiêu chí so sánh mã.<br>• Thống nhất tài liệu API Core Trading & cơ chế Auth JWT.</td>
+              <td>• Báo cáo đánh giá so sánh model LLM.<br>• Bộ Prompt & Quy tắc nghiệp vụ được duyệt.<br>• Tài liệu đặc tả API integration FPT-APS.</td>
             </tr>
             <tr>
               <td><strong>Tuần 3 – 4<br><span style="color:#c084fc">Tích hợp Kỹ thuật</span></strong></td>
@@ -496,14 +544,15 @@
         </table>
       </div>
       <div class="card" style="background: rgba(37,99,235,.08); border-color: rgba(56,189,248,.35);">
-        <h4 style="color: #fff; margin-bottom: 2px;">⚡ 3 Quyết định Ban Lãnh đạo APS cần bấm nút khởi động:</h4>
-        <p style="color: var(--text); font-size: 13.5px;">
+        <h4 style="color: #fff; margin-bottom: 2px;">⚡ 4 Quyết định Ban Lãnh đạo APS cần bấm nút khởi động:</h4>
+        <p style="color: var(--text); font-size: 13.5px; line-height: 1.6;">
           1. <strong>Cử đầu mối BA & Chuyên gia Phân tích</strong> tham gia hoàn thiện câu trả lời và xây bộ câu hỏi kiểm thử chuẩn.<br>
-          2. <strong>Giao Khối Kỹ thuật APS</strong> phối hợp với FPT mở API tài khoản thật và tiếp nhận REST API/Webhook.<br>
-          3. <strong>Giao Khối Môi giới APS</strong> nghiên cứu đề xuất quy trình tiếp nhận và phân bổ lead khách hàng từ bot.
+          2. <strong>Phối hợp cùng FPT đánh giá văn phong</strong> & thẩm định kết quả so sánh các mô hình LLM thử nghiệm.<br>
+          3. <strong>Giao Khối Kỹ thuật APS</strong> phối hợp với FPT mở API tài khoản thật và tiếp nhận REST API/Webhook.<br>
+          4. <strong>Giao Khối Môi giới APS</strong> nghiên cứu đề xuất quy trình tiếp nhận và phân bổ lead khách hàng từ bot.
         </p>
       </div>
-    `, "Kết luận: Kế hoạch 6 tuần hoàn toàn khả thi nếu hai bên chỉ định đầu mối rõ ràng. Đề xuất Lãnh đạo bấm nút khởi động 3 nhóm đầu mối ngay trong tuần tới.");
+    `, "Kết luận: Kế hoạch 6 tuần hoàn toàn khả thi nếu hai bên chỉ định đầu mối rõ ràng. Đề xuất Lãnh đạo bấm nút khởi động 4 nhóm đầu mối ngay trong tuần tới.");
 
     // Điều hướng
     const slides = [...deck.querySelectorAll(".slide")];
