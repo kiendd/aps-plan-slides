@@ -65,25 +65,22 @@
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1; min-height: 0; }
     .card {
       background: var(--surface-card); border: 1px solid var(--border); border-radius: 14px;
-      padding: 20px 22px; display: flex; flex-direction: column; gap: 10px;
+      padding: 24px 26px; display: flex; flex-direction: column; gap: 14px;
     }
-    .card h3 { font-size: 17px; color: #fff; display: flex; gap: 8px; align-items: center; }
+    .card h3 { font-size: 18.5px; color: #fff; display: flex; gap: 8px; align-items: center; font-weight: 700; margin-bottom: 2px; }
     .card h4 { font-size: 15px; color: var(--accent); }
-    .card p, .card li { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
-    .card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .card ul li { display: flex; gap: 8px; align-items: flex-start; }
-    .card ul li .dot { color: var(--accent); font-weight: bold; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    .card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; }
+    .card ul li { position: relative; padding-left: 18px; font-size: 14px; line-height: 1.6; color: var(--text); }
+    .card ul li .dot { position: absolute; left: 0; top: 0; color: var(--accent); font-weight: bold; }
 
     .tag-green { color: #34d399; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.3); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; width: fit-content; }
     .tag-blue { color: #38bdf8; background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.3); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; width: fit-content; }
     .tag-purple { color: #c084fc; background: rgba(168,85,247,.12); border: 1px solid rgba(168,85,247,.3); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; width: fit-content; }
 
-    /* Comparison Box */
-    .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .box-current { background: rgba(239,68,68,.05); border: 1px solid rgba(239,68,68,.25); border-radius: 14px; padding: 20px; }
-    .box-future { background: rgba(16,185,129,.05); border: 1px solid rgba(16,185,129,.25); border-radius: 14px; padding: 20px; }
-    .box-current h3 { color: #f87171; font-size: 16px; margin-bottom: 10px; }
-    .box-future h3 { color: #34d399; font-size: 16px; margin-bottom: 10px; }
+    /* 2x2 Grid */
+    .grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; min-height: 0; }
 
     /* Architecture / Flow boxes */
     .arch-flow { display: flex; flex-direction: column; gap: 14px; width: 100%; }
@@ -102,11 +99,11 @@
     .pillar-item b { font-size: 13.5px; color: #fff; display: block; margin-bottom: 3px; line-height: 1.3; }
     .pillar-item span { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; display: block; }
 
-    /* Timeline Table */
+    /* Timeline & Comparison Table */
     table.timeline-table { width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; }
-    table.timeline-table th { background: rgba(255,255,255,.05); color: var(--text-muted); padding: 10px 14px; border-bottom: 1px solid var(--border); }
-    table.timeline-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); line-height: 1.45; }
-
+    table.timeline-table th { background: rgba(255,255,255,.05); color: var(--text-muted); padding: 12px 16px; border-bottom: 1px solid var(--border); font-weight: 600; }
+    table.timeline-table td { padding: 13px 16px; border-bottom: 1px solid var(--border); line-height: 1.5; color: var(--text); vertical-align: top; }
+    table.timeline-table tr:last-child td { border-bottom: none; }
     /* Controls */
     .controls {
       position: fixed; bottom: 0; left: 0; right: 0; height: 52px; z-index: 100;
@@ -139,9 +136,9 @@
       .title-slide { justify-content: flex-start; padding-top: 24px; gap: 14px; }
       .title-slide h1 { font-size: 28px; }
       .title-slide .lead { font-size: 14px; }
-      .pillars { grid-template-columns: 1fr; gap: 8px; }
-      .grid-2, .grid-3, .compare-box { display: flex; flex-direction: column; gap: 14px; }
-      .arch-step { grid-template-columns: 1fr; gap: 6px; padding: 12px 14px; }
+      .grid-2, .grid-3, .grid-2x2 { display: flex; flex-direction: column; gap: 14px; }
+      .card:has(table.timeline-table) { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+      table.timeline-table { min-width: 600px; }
       .controls { height: 48px; padding: 0 10px; }
       .controls > div { gap: 6px; }
       .btn { padding: 5px 8px; font-size: 11.5px; }
@@ -230,30 +227,45 @@
         <h2 class="slide-title">Bức tranh Chuyển dịch từ PoC lên Sản phẩm Thực tế</h2>
         <p class="slide-subtitle">Chuyển mình từ một bot thử nghiệm độc lập trên Telegram sang một Trợ lý AI tài chính nhúng sâu vào hành trình giao dịch của nhà đầu tư APS.</p>
       </div>
-      <div class="compare-box">
-        <div class="box-current">
-          <h3>⏳ Hiện trạng Bản Thử nghiệm (PoC)</h3>
-          <ul>
-            <li><span class="dot">•</span> <strong>Môi trường:</strong> Chạy độc lập trên Telegram, phục vụ nhóm thử nghiệm nội bộ.</li>
-            <li><span class="dot">•</span> <strong>Dữ liệu danh mục:</strong> Dùng 3 Mẫu khách giả lập (Thận trọng, Cân bằng, Tích cực).</li>
-            <li><span class="dot">•</span> <strong>Giá & Cảnh báo:</strong> Giá snapshot trễ 5 phút; cảnh báo gửi qua Telegram bot.</li>
-            <li><span class="dot">•</span> <strong>Tư vấn & Môi giới:</strong> Bắn thông báo vào một Group Telegram nội bộ để người trực xem.</li>
-            <li><span class="dot">•</span> <strong>Tri thức:</strong> Dữ liệu FAQ công khai và văn bản pháp luật cơ bản.</li>
-          </ul>
-        </div>
-        <div class="box-future">
-          <h3>🚀 Mục tiêu Sản phẩm Thực tế (Live App)</h3>
-          <ul>
-            <li><span class="dot">•</span> <strong>Môi trường:</strong> Tích hợp trực tiếp trên App APS (iOS/Android), duy trì Telegram song song.</li>
-            <li><span class="dot">•</span> <strong>Dữ liệu danh mục:</strong> Kết nối tài khoản thật, số dư thực tế và danh mục lãi/lỗ thời gian thực.</li>
-            <li><span class="dot">•</span> <strong>Giá & Cảnh báo:</strong> Giá streaming realtime; đẩy Push Notification trực tiếp vào điện thoại.</li>
-            <li><span class="dot">•</span> <strong>Tư vấn & Môi giới:</strong> Đề xuất quy trình định tuyến tự động cho chính Broker quản lý tiểu khoản.</li>
-            <li><span class="dot">•</span> <strong>Tri thức:</strong> Chuyên sâu về biểu phí margin, sản phẩm tài chính APEC và báo cáo phân tích.</li>
-          </ul>
-        </div>
+      <div class="card" style="padding:0; overflow:hidden;">
+        <table class="timeline-table">
+          <thead>
+            <tr>
+              <th style="width: 22%">Hạng mục chuyển đổi</th>
+              <th style="width: 39%"><span style="color:#f87171">⏳ Hiện trạng Bản Thử nghiệm (PoC)</span></th>
+              <th style="width: 39%"><span style="color:#34d399">🚀 Mục tiêu Sản phẩm Thực tế (Live App)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Môi trường & Giao diện</strong></td>
+              <td>Chạy độc lập trên Telegram bot cá nhân; người dùng cần có tài khoản Telegram riêng.</td>
+              <td><strong>Tích hợp trực tiếp vào Mobile App APS (iOS/Android)</strong>; duy trì kênh Telegram song song cho khách hàng cá nhân.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Tài khoản & Danh mục</strong></td>
+              <td>Dữ liệu danh mục giả lập từ 3 Mẫu khách (Thận trọng, Cân bằng, Tích cực).</td>
+              <td><strong>Kết nối API Core Trading của APS</strong>: truy vấn danh mục thực tế, lãi/lỗ thời gian thực và sức mua margin.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Dữ liệu giá & Cảnh báo</strong></td>
+              <td>Dữ liệu giá snapshot trễ 5 phút; cảnh báo gửi qua tin nhắn bot Telegram.</td>
+              <td><strong>Giá streaming realtime từ sở (HOSE/HNX)</strong>; đẩy Push Notification trực tiếp vào điện thoại khách hàng.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Cơ chế Môi giới & Tư vấn</strong></td>
+              <td>Bắn thông báo vào Group Telegram nội bộ để nhân sự trực tiếp nhận thủ công.</td>
+              <td><strong>Định tuyến tự động cho Broker quản lý tài khoản</strong> qua hệ thống CRM / App Careby nội bộ của APS.</td>
+            </tr>
+            <tr>
+              <td><strong>5. Kho tri thức & Sản phẩm</strong></td>
+              <td>Dữ liệu FAQ công khai trên website apec.com.vn và văn bản quy phạm pháp luật cơ bản.</td>
+              <td><strong>Chuyên sâu về biểu phí margin, sản phẩm tài chính APEC</strong> (Abond, Asavings, CW) & Báo cáo phân tích định kỳ.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     `, "Nhấn mạnh với lãnh đạo APS: PoC đã chứng minh năng lực lõi (xử lý tiếng Việt, không bịa số, kiểm duyệt an toàn). Giai đoạn 2 là gắn động cơ AI này vào cỗ máy kinh doanh của APS để tạo đột phá cạnh tranh.");
-
     // SLIDE 3: MA TRẬN 6 ĐẦU VIỆC PHỐI HỢP
     addSlide(`
       <div class="slide-header">
@@ -366,22 +378,42 @@
         <h2 class="slide-title">Phương án Tích hợp App: REST API + Webhook + Token Auth</h2>
         <p class="slide-subtitle">Thiết kế module hóa tối ưu, giúp đội ngũ Mobile App của APS đấu nối nhanh chóng, bảo mật thông tin tài khoản tuyệt đối và duy trì song song kênh Telegram.</p>
       </div>
-      <div class="arch-flow">
-        <div class="arch-step">
-          <div><span class="tag-blue">Hỏi đáp 2 chiều</span><br><b>REST API / SSE Streaming</b></div>
-          <p>Mobile App APS gửi câu hỏi qua <code>POST /api/v1/chat/message</code> kèm JWT Token. Hỗ trợ Server-Sent Events (SSE) để chữ chạy mượt mà theo thời gian thực (typing effect), tối ưu trải nghiệm người dùng di động.</p>
+      <div class="grid-2x2">
+        <div class="card" style="border-left: 4px solid var(--accent);">
+          <div class="tag-blue">Giao tiếp Hỏi đáp 2 chiều</div>
+          <h3>1. REST API & SSE Streaming</h3>
+          <p>Mobile App APS gọi endpoint <code>POST /api/v1/chat/message</code> kèm JWT Token.</p>
+          <ul>
+            <li><span class="dot">•</span> <strong>Streaming phản hồi (SSE):</strong> Chữ chạy mượt mà theo thời gian thực (typing effect), tối ưu trải nghiệm đọc trên điện thoại di động.</li>
+            <li><span class="dot">•</span> <strong>Cấu trúc JSON chuẩn hóa:</strong> Trả về các khối rõ ràng (tiêu đề, dữ kiện gạch đầu dòng, trích dẫn nguồn và gợi ý nút bấm).</li>
+          </ul>
         </div>
-        <div class="arch-step">
-          <div><span class="tag-green">Tin đẩy chủ động</span><br><b>Webhook ➡️ Push Notification</b></div>
-          <p>Khi Bot Engine phát hiện biến động giá hoặc có Bản tin cữ giờ, hệ thống bắn payload qua Webhook của APS. Server APS tiếp nhận và điều phối gửi Notification (FCM / APNs) thẳng vào điện thoại của khách hàng.</p>
+        <div class="card" style="border-left: 4px solid var(--success);">
+          <div class="tag-green">Tin đẩy chủ động</div>
+          <h3>2. Webhook ➡️ Push Notification</h3>
+          <p>Khi Bot Engine phát hiện biến động giá hoặc có Bản tin mới, hệ thống bắn payload qua Webhook của APS.</p>
+          <ul>
+            <li><span class="dot">•</span> <strong>Đẩy thông báo App (FCM / APNs):</strong> Server APS tiếp nhận sự kiện và gửi Push Notification trực tiếp vào thiết bị của khách hàng.</li>
+            <li><span class="dot">•</span> <strong>Lọc theo danh mục thực:</strong> Chỉ gửi cho nhà đầu tư đang nắm giữ mã hoặc đã đăng ký quan tâm.</li>
+          </ul>
         </div>
-        <div class="arch-step">
-          <div><span class="tag-purple">Xác thực & Bảo mật</span><br><b>Xác thực User Token (SSO)</b></div>
-          <p>App APS truyền Bearer Token của người dùng đã đăng nhập. Bot Gateway xác thực token qua Auth Service của APS để lấy định danh <code>account_no</code>; từ đó truy vấn danh mục thực tế của khách mà không lưu trữ mật khẩu.</p>
+        <div class="card" style="border-left: 4px solid var(--purple);">
+          <div class="tag-purple">Bảo mật & Phân quyền</div>
+          <h3>3. Xác thực User Token (SSO)</h3>
+          <p>Nhận diện khách hàng qua cơ chế Token do App APS cấp sau khi người dùng đăng nhập.</p>
+          <ul>
+            <li><span class="dot">•</span> <strong>Không lưu mật khẩu:</strong> Bot Gateway giải mã JWT Token qua Auth Service của APS để lấy định danh <code>account_no</code>.</li>
+            <li><span class="dot">•</span> <strong>Truy vấn Core an toàn:</strong> Bot gọi internal API của APS để đọc danh mục thực tế của tài khoản trong phiên chat.</li>
+          </ul>
         </div>
-        <div class="arch-step">
-          <div><span class="tag-blue">Đa kênh đồng bộ</span><br><b>Duy trì song song Telegram</b></div>
-          <p>Khách hàng có thể quét mã QR trên App APS để liên kết tài khoản Telegram. Dữ liệu danh mục thật, cảnh báo giá và đăng ký quan tâm được đồng bộ xuyên suốt giữa App và Telegram.</p>
+        <div class="card" style="border-left: 4px solid #f59e0b;">
+          <div style="color: #fbbf24; background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; width: fit-content;">Đa kênh đồng bộ</div>
+          <h3>4. Duy trì Song song Kênh Telegram</h3>
+          <p>Cung cấp trải nghiệm đa kênh liền mạch cho khách hàng thích nhận tin qua Telegram.</p>
+          <ul>
+            <li><span class="dot">•</span> <strong>Liên kết 1 chạm:</strong> Khách quét mã QR trên App APS để liên kết với bot Telegram.</li>
+            <li><span class="dot">•</span> <strong>Đồng bộ xuyên suốt:</strong> Danh mục thực, cảnh báo giá và đăng ký tin tức được cập nhật đồng nhất trên cả hai kênh.</li>
+          </ul>
         </div>
       </div>
     `, "Nhấn mạnh với CTO/Đội kỹ thuật APS: Kiến trúc REST API + Webhook là chuẩn công nghiệp quen thuộc nhất, giảm thiểu tối đa khối lượng công việc cho đội ngũ App của APS.");
@@ -483,9 +515,9 @@
           <h3>Kế thừa Cơ chế Group Thông báo</h3>
           <p>Tiếp tục duy trì giải pháp đã kiểm chứng ở bản PoC để có thể vận hành thử nghiệm ngay lập tức:</p>
           <ul>
-            <li><span class="dot">•</span> Khi khách bấm "Gặp môi giới" trên App hoặc Telegram, bot tự động tổng hợp câu hỏi, mã cổ phiếu và thông tin liên hệ của khách.</li>
-            <li><span class="dot">•</span> Bắn thông báo tức thì vào Group Telegram điều phối nội bộ của Khối Môi giới APS.</li>
-            <li><span class="dot">•</span> Trưởng nhóm hoặc chuyên viên trực ca tiếp nhận thủ công và liên hệ hỗ trợ khách hàng ngay.</li>
+            <li><span class="dot">•</span> <strong>Bước 1:</strong> Khách bấm "Gặp môi giới" trên App hoặc Telegram ➡️ Bot tự động tổng hợp câu hỏi, mã cổ phiếu và thông tin liên hệ.</li>
+            <li><span class="dot">•</span> <strong>Bước 2:</strong> Bắn thông báo tức thì vào Group Telegram điều phối nội bộ của Khối Môi giới APS.</li>
+            <li><span class="dot">•</span> <strong>Bước 3:</strong> Trưởng nhóm hoặc chuyên viên trực ca tiếp nhận thủ công và liên hệ hỗ trợ khách hàng ngay.</li>
           </ul>
         </div>
         <div class="card">
@@ -498,6 +530,10 @@
             <li><span class="dot">•</span> <strong>Cam kết phản hồi (SLA):</strong> Bot hiển thị thông tin Broker (Tên, SĐT/Zalo) và gửi tin báo xác nhận chuyên viên đang liên hệ.</li>
           </ul>
         </div>
+      </div>
+      <div class="card" style="background: rgba(16,185,129,.06); border-color: rgba(16,185,129,.3); padding: 14px 18px; margin-top: 14px;">
+        <h4 style="color:#34d399; margin-bottom:2px;">💡 Mục tiêu cốt lõi:</h4>
+        <p style="color:var(--text); font-size:13.5px; margin:0;">AI không thay thế môi giới, mà trở thành phễu lọc nhu cầu tự động 24/7 và chuyển giao tận tay đội ngũ Broker APS các cơ hội giao dịch nóng nhất của nhà đầu tư.</p>
       </div>
     `, "Gửi thông điệp quan trọng tới Giám đốc Khối Môi giới APS: Bot sinh ra để phục vụ môi giới, giúp môi giới lọc trước nhu cầu của khách và trao tận tay môi giới những cơ hội giao dịch nóng nhất.");
 
@@ -517,7 +553,7 @@
           <h3>Kho Tài liệu Hiện tại</h3>
           <p>Hệ thống RAG vector đã được huấn luyện và đối soát với:</p>
           <ul>
-            <li><span class="dot">•</span> <strong>49 tài liệu nguồn</strong> bóc tách thành <strong>509 đoạn cắt (chunks)</strong>.</li>
+            <li><span class="dot">•</span> <strong>49 tài liệu nguồn</strong> bóc tách thành <strong>509 đoạn cắt (chunks)</strong> lưu trong Postgres Vector DB.</li>
             <li><span class="dot">•</span> Thu thập tự động định kỳ từ website chính thức <code>apec.com.vn</code>: Trung tâm hỗ trợ, Câu hỏi thường gặp FAQ, Kiến thức chung, Hướng dẫn giao dịch cổ phiếu / phái sinh.</li>
             <li><span class="dot">•</span> Bộ văn bản quy phạm pháp luật: Luật Chứng khoán, Nghị định 155/2020/NĐ-CP (trích dẫn chuẩn xác theo từng Điều, khoản).</li>
           </ul>
@@ -533,7 +569,12 @@
           </ul>
         </div>
       </div>
+      <div class="card" style="background: rgba(56,189,248,.06); border-color: rgba(56,189,248,.3); padding: 14px 18px; margin-top: 14px;">
+        <h4 style="color:var(--accent); margin-bottom:2px;">⚡ Công nghệ RAG sẵn sàng:</h4>
+        <p style="color:var(--text); font-size:13.5px; margin:0;">Hệ thống đã hoàn thiện 100% cơ chế bóc tách vector và bộ lọc chặn số lạ. APS chỉ cần cung cấp file tài liệu (PDF/Word), dữ liệu sẽ được nạp và kiểm thử hoàn tất trong vòng 24 giờ.</p>
+      </div>
     `, "Khẳng định: Năng lực RAG của FPT đã hoàn thiện 100% về mặt công nghệ (có bộ chặn số lạ, trích dẫn link nguồn). Khi APS rót thêm tài liệu sản phẩm độc quyền, bot sẽ lập tức giải đáp vanh vách mọi chính sách của công ty.");
+
     // SLIDE 10: KẾ HOẠCH TRIỂN KHAI & HÀNH ĐỘNG
     addSlide(`
       <div class="slide-header">
