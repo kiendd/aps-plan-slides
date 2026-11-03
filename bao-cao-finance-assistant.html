@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo cáo Kết quả Triển khai FinanceAssistant & Định hướng Tiếp theo</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #111827;
+      --surface-card: #162032;
+      --surface-card-hover: #1c2940;
+      --border: #23324d;
+      --border-light: #334769;
+      --text: #f3f4f6;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --primary: #2563eb;
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.12);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.12);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.12);
+      --purple: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    /* Top progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #38bdf8, #10b981);
+      width: 0%;
+      transition: width 0.3s ease;
+      z-index: 100;
+    }
+
+    /* Presentation Deck */
+    .deck-container {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 50px 70px 70px 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+      overflow-y: auto;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Header & Tagging */
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    .slide-header {
+      margin-bottom: 24px;
+    }
+
+    .slide-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    /* Cards and Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-light);
+    }
+
+    .card-highlight {
+      background: linear-gradient(145deg, rgba(37, 99, 235, 0.1), rgba(56, 189, 248, 0.05));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Metric Callout Cards */
+    .metric-value {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .metric-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Lists */
+    ul.feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    ul.feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    ul.feature-list li .bullet {
+      color: var(--accent);
+      font-weight: bold;
+      margin-top: 1px;
+    }
+
+    /* Traffic Light Cards */
+    .traffic-card {
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid;
+    }
+
+    .traffic-green {
+      background: rgba(16, 185, 129, 0.06);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .traffic-green .light-title { color: #34d399; }
+
+    .traffic-yellow {
+      background: rgba(245, 158, 11, 0.06);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .traffic-yellow .light-title { color: #fbbf24; }
+
+    .traffic-red {
+      background: rgba(239, 68, 68, 0.06);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .traffic-red .light-title { color: #f87171; }
+
+    .light-title {
+      font-size: 17px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tables */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table.data-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Tag / Pill */
+    .pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .pill-green { background: var(--success-bg); color: #34d399; }
+    .pill-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+    .pill-yellow { background: var(--warning-bg); color: #fbbf24; }
+    .pill-red { background: var(--danger-bg); color: #f87171; }
+
+    /* Demo Chat Mock */
+    .chat-bubble {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      border-left: 3px solid var(--accent);
+      margin-top: 6px;
+    }
+
+    .chat-user {
+      color: #93c5fd;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .chat-bot {
+      color: #e2e8f0;
+      white-space: pre-line;
+      font-family: inherit;
+    }
+
+    /* Bottom Control Bar */
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: rgba(11, 15, 25, 0.88);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      z-index: 100;
+    }
+
+    .controls-left, .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--surface-card-hover);
+      border-color: var(--border-light);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: #3b82f6;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* Speaker Notes Drawer */
+    #notes-panel {
+      position: fixed;
+      bottom: 56px;
+      right: 30px;
+      width: 480px;
+      max-height: 280px;
+      background: #0f172a;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      padding: 18px 22px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 99;
+      overflow-y: auto;
+    }
+
+    #notes-panel.open {
+      display: flex;
+    }
+
+    #notes-panel h4 {
+      font-size: 13px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #notes-content {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        overflow: visible;
+        background: #fff;
+        color: #000;
+      }
+      .controls, #progress-bar, #notes-panel {
+        display: none !important;
+      }
+      .slide {
+        position: relative !important;
+        page-break-after: always;
+        height: 100vh;
+        width: 100vw;
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        padding: 40px !important;
+        background: #0b0f19;
+        color: #fff;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <div class="deck-container">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" data-notes="Khai mạc: Báo cáo thành quả triển khai Trợ lý AI Tài chính (FinanceAssistant) sau giai đoạn R&D thử nghiệm nội bộ giữa FPT và APEC, và xin định hướng chiến lược từ Sếp cho giai đoạn tới.">
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 950px;">
+        <div class="slide-badge">BÁO CÁO KẾT QUẢ TRIỂN KHAI &amp; ĐỊNH HƯỚNG</div>
+        <h1 style="font-size: 46px; font-weight: 800; color: #fff; line-height: 1.15; margin: 12px 0 20px 0;">
+          FinanceAssistant: Trợ lý Đầu tư Chứng khoán AI Thông minh &amp; Không bịa số
+        </h1>
+        <p style="font-size: 20px; color: var(--text-muted); line-height: 1.5; margin-bottom: 30px;">
+          Nền tảng Chatbot Telegram thế hệ mới: Hợp nhất Dữ liệu thị trường thật, Tin tức bóc tách tự động, Kho tài liệu RAG và Hệ thống kiểm duyệt an toàn tuyệt đối.
+        </p>
+
+        <div style="display: flex; gap: 40px; border-top: 1px solid var(--border); padding-top: 24px;">
+          <div>
+            <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; font-weight: 600;">Hợp tác dự án</div>
+            <div style="font-size: 16px; font-weight: 600; color: #fff; margin-top: 4px;">FPT × APEC Securities</div>
+          </div>
+          <div>
+            <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; font-weight: 600;">Thời điểm báo cáo</div>
+            <div style="font-size: 16px; font-weight: 600; color: #fff; margin-top: 4px;">Tháng 10 / 2026</div>
+          </div>
+          <div>
+            <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; font-weight: 600;">Độ sẵn sàng kỹ thuật</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--success); margin-top: 4px;">Hoàn thành 141 Requirements (100% CI xanh)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Problem & Context -->
+    <div class="slide" data-notes="Nhấn mạnh: NĐT cá nhân đang quá tải thông tin, nhưng nếu dùng ChatGPT thì cực kỳ nguy hiểm vì bịa số và vi phạm tư vấn pháp lý. Bot này giải quyết trúng cả 2 bài toán đó.">
+      <div class="slide-header">
+        <div class="slide-badge">BỐI CẢNH &amp; MỤC TIÊU</div>
+        <h2 class="slide-title">Bài toán của Nhà đầu tư Cá nhân &amp; Lời giải AI</h2>
+        <div class="slide-subtitle">Biến thông tin tài chính phân tán thành trải nghiệm tra cứu tức thời, có kiểm chứng</div>
+      </div>
+
+      <div class="grid-2" style="flex: 1;">
+        <div class="card" style="border-left: 4px solid var(--danger);">
+          <div class="card-title" style="color: #f87171;">
+            <span>⚠️ Nỗi đau thị trường hiện tại</span>
+          </div>
+          <ul class="feature-list" style="margin-top: 6px;">
+            <li><span class="bullet" style="color: #f87171;">•</span> <strong>Quá tải tin tức:</strong> Hàng trăm tin mỗi ngày, không biết tin nào chạm tới mã mình nắm.</li>
+            <li><span class="bullet" style="color: #f87171;">•</span> <strong>Phân tán công cụ:</strong> Muốn xem giá, chỉ số P/E, cổ đông lớn hay biểu phí phải mở 4-5 màn hình khác nhau.</li>
+            <li><span class="bullet" style="color: #f87171;">•</span> <strong>Nguy cơ LLM thông thường (ChatGPT):</strong> Bịa số liệu (hallucination), không trích nguồn, dễ vi phạm tư vấn chứng khoán trái phép.</li>
+          </ul>
+        </div>
+
+        <div class="card card-highlight" style="border-left: 4px solid var(--accent);">
+          <div class="card-title" style="color: var(--accent);">
+            <span>🎯 Giải pháp của FinanceAssistant</span>
+          </div>
+          <ul class="feature-list" style="margin-top: 6px;">
+            <li><span class="bullet">✓</span> <strong>Tập trung 1 điểm chạm:</strong> Chat tiếng Việt trên Telegram, hỏi giá, tin tức, tài liệu, danh mục ở cùng một nơi.</li>
+            <li><span class="bullet">✓</span> <strong>Cam kết trung thực 100%:</strong> Trích nguồn cụ thể kèm ngày giờ; thiếu dữ liệu thì nói "chưa có", tuyệt đối không bịa.</li>
+            <li><span class="bullet">✓</span> <strong>Ranh giới tuân thủ pháp lý:</strong> Không bao giờ khuyến nghị mua/bán; tự động điều hướng gặp Môi giới thật khi có nhu cầu tư vấn.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Numbers & Achievements -->
+    <div class="slide" data-notes="Slide ấn tượng nhất về kỹ thuật: 141 yêu cầu đã đóng gói, 762 automated test xanh, bộ eval 99 câu thực tế đạt 99% và 0% bịa số. Chứng minh dự án được làm cực kỳ bài bản.">
+      <div class="slide-header">
+        <div class="slide-badge">KẾT QUẢ ĐO LƯỜNG ĐƯỢC</div>
+        <h2 class="slide-title">Quy mô Triển khai &amp; Chất lượng Kiểm chứng</h2>
+        <div class="slide-subtitle">Không chỉ là bản demo ý tưởng — đã được kiểm nghiệm bằng hệ thống đo lường tự động</div>
+      </div>
+
+      <div class="grid-4" style="margin-bottom: 24px;">
+        <div class="card card-highlight">
+          <div class="metric-label">Phạm vi nghiệp vụ</div>
+          <div class="metric-value" style="color: var(--accent);">141</div>
+          <div class="metric-sub">Requirements hoàn thành (6 miền)</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Độ chính xác Eval</div>
+          <div class="metric-value" style="color: var(--success);">99.0%</div>
+          <div class="metric-sub">98/99 câu thực tế đạt 4 tiêu chí</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Tỷ lệ bịa số (Hallucination)</div>
+          <div class="metric-value" style="color: #34d399;">0.0%</div>
+          <div class="metric-sub">Chặn 100% số lạ nhờ Guardrails</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Kiểm thử tự động</div>
+          <div class="metric-value" style="color: #a855f7;">762</div>
+          <div class="metric-sub">Automated Tests xanh 100%</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 16px 20px;">
+        <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 8px;">6 Miền nghiệp vụ đã đóng gói trọn vẹn:</div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <span class="pill pill-blue">Hỏi đáp &amp; RAG (34 reqs)</span>
+          <span class="pill pill-green">Dữ liệu thị trường (23 reqs)</span>
+          <span class="pill pill-blue">Tin tức &amp; Đối tượng tin (27 reqs)</span>
+          <span class="pill pill-yellow">Kho tài liệu APS (13 reqs)</span>
+          <span class="pill pill-green">Quản trị &amp; An toàn web (22 reqs)</span>
+          <span class="pill pill-blue">Quyền truy cập &amp; Phê duyệt (19 reqs)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Pillar 1 - Traffic Light & Guardrails -->
+    <div class="slide" data-notes="Nhấn mạnh cơ chế Đèn giao thông: Nhánh xanh không gọi LLM để siêu nhanh và chính xác; Nhánh vàng có Guard quét số; Nhánh đỏ chặn đứng tư vấn vi phạm.">
+      <div class="slide-header">
+        <div class="slide-badge">KIẾN TRÚC ĐỘC QUYỀN</div>
+        <h2 class="slide-title">Cơ chế "Đèn giao thông" &amp; Chống bịa số (Guardrails)</h2>
+        <div class="slide-subtitle">Phân luồng 3 cấp độ giúp loại bỏ hoàn toàn rủi ro tư vấn sai lệch</div>
+      </div>
+
+      <div class="grid-3" style="flex: 1;">
+        <div class="traffic-card traffic-green">
+          <div class="light-title">🟢 Nhánh Xanh: Dữ kiện thuần</div>
+          <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+            Áp dụng cho: Giá cổ phiếu, 5 chỉ số tài chính, tin tức trong ngày, hồ sơ cổ đông, tài liệu FAQ APS, danh mục mẫu.
+          </div>
+          <ul class="feature-list" style="margin-top: 8px;">
+            <li><span class="bullet" style="color:#34d399;">•</span> <strong>Code dựng 100%:</strong> Không gọi LLM, phản hồi tức thì (~1.0s).</li>
+            <li><span class="bullet" style="color:#34d399;">•</span> <strong>Trích nguồn bắt buộc:</strong> Ghi rõ nguồn và mốc thời gian của giá/tin.</li>
+          </ul>
+        </div>
+
+        <div class="traffic-card traffic-yellow">
+          <div class="light-title">🟡 Nhánh Vàng: Phân tích &amp; So sánh</div>
+          <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+            Áp dụng cho: Giải thích biến động giá ("tại sao FPT giảm?"), so sánh 2 mã, tỷ trọng ngành.
+          </div>
+          <ul class="feature-list" style="margin-top: 8px;">
+            <li><span class="bullet" style="color:#fbbf24;">•</span> <strong>Dữ kiện code tính:</strong> Biên độ phiên, đỉnh đáy 20 phiên, khối ngoại.</li>
+            <li><span class="bullet" style="color:#fbbf24;">•</span> <strong>Bộ chặn số lạ (Guard):</strong> LLM chỉ được dùng số do hệ thống cung cấp; phát hiện số tự bịa ➡️ lùi về dữ kiện thuần.</li>
+          </ul>
+        </div>
+
+        <div class="traffic-card traffic-red">
+          <div class="light-title">🔴 Nhánh Đỏ: Tư vấn &amp; Khuyến nghị</div>
+          <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+            Áp dụng cho: "Có nên mua/bán không?", "Mã nào sinh lời tốt?", xin ý kiến pháp lý rủi ro.
+          </div>
+          <ul class="feature-list" style="margin-top: 8px;">
+            <li><span class="bullet" style="color:#f87171;">•</span> <strong>Từ chối lịch sự tự động:</strong> Nêu rõ ranh giới bot không đưa ra khuyến nghị đầu tư.</li>
+            <li><span class="bullet" style="color:#f87171;">•</span> <strong>Nút "Gặp môi giới":</strong> Điều hướng chuyển yêu cầu của khách hàng tới chuyên viên tư vấn APEC.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Pillar 2 - Market Data & Shareholding -->
+    <div class="slide" data-notes="Vừa cập nhật mới nhất: tính năng Cổ đông lớn (~35.600 dòng VNDirect) đồng bộ mỗi ngày. Giải quyết xuất sắc bài toán trùng tên bằng cách neo theo công ty niêm yết.">
+      <div class="slide-header">
+        <div class="slide-badge">DỮ LIỆU THỊ TRƯỜNG</div>
+        <h2 class="slide-title">Dữ liệu Giá, Cổ đông lớn &amp; Cảnh báo Đa tầng</h2>
+        <div class="slide-subtitle">Xử lý sâu dữ liệu tài chính phức tạp và bài toán nhận diện ngữ cảnh liên tiếp</div>
+      </div>
+
+      <div class="grid-2" style="flex: 1;">
+        <div class="card">
+          <div class="card-title">📊 Nguồn giá &amp; Cổ đông lớn (~35.600 dòng)</div>
+          <ul class="feature-list">
+            <li><span class="bullet">•</span> <strong>Tích hợp dữ liệu:</strong> Bảng giá APEC / VNDirect, khối ngoại mua/bán/room, 5 chỉ số (P/E, P/B, EPS, BVPS, ROE).</li>
+            <li><span class="bullet">•</span> <strong>Cổ đông lớn toàn thị trường:</strong> Tự động đồng bộ 35.603 dòng dữ liệu cổ đông lớn từ VNDirect mỗi 24h.</li>
+            <li><span class="bullet">•</span> <strong>Giải quyết bài toán trùng tên:</strong> Neo theo công ty của nhân vật để loại trừ trùng tên (VD: 8 người tên Nguyễn Quốc Cường nắm 8 mã khác nhau, bot chỉ trả lời đúng người của công ty đã hỏi).</li>
+            <li><span class="bullet">•</span> <strong>Bộ nhớ chủ thể:</strong> Hiểu câu hỏi tiếp theo không chủ ngữ (VD: <em>"Cường Đô la là ai?"</em> ➡️ <em>"đang nắm bao nhiêu cổ phiếu?"</em>).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔔 Hệ thống Cảnh báo Chủ động</div>
+          <ul class="feature-list">
+            <li><span class="bullet">•</span> <strong>Cảnh báo chạm ngưỡng (Price Alerts):</strong> Người dùng tự đặt mức giá cụ thể; bot giám sát trong giờ giao dịch, chạm ngưỡng gửi 1 lần duy nhất rồi tắt.</li>
+            <li><span class="bullet">•</span> <strong>Cảnh báo biến động nhanh (Volatility):</strong> Tự động phát hiện khi một mã biến động ±3% trong 15 phút và gửi riêng cho người đang theo dõi.</li>
+            <li><span class="bullet">•</span> <strong>Ngưỡng riêng biệt từng mã:</strong> Cho phép từng nhà đầu tư tùy biến biên độ cảnh báo phù hợp với khẩu vị rủi ro cá nhân.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Pillar 3 - News Radar & RAG -->
+    <div class="slide" data-notes="Radar tin tức tự động bóc tách thực thể từ 12 nguồn RSS, gộp bài cùng sự kiện và phân loại Cao/Trung bình/Thấp. RAG APS đảm bảo trả lời chính xác từng điều khoản.">
+      <div class="slide-header">
+        <div class="slide-badge">AI XỬ LÝ NỘI DUNG</div>
+        <h2 class="slide-title">Radar Tin tức Bóc tách Thực thể &amp; Kho Tài liệu (RAG)</h2>
+        <div class="slide-subtitle">Thu thập tự động, hiểu sâu ngữ nghĩa và liên kết với danh mục nhà đầu tư</div>
+      </div>
+
+      <div class="grid-2" style="flex: 1;">
+        <div class="card">
+          <div class="card-title">📰 Radar Tin tức &amp; Bóc tách Thực thể</div>
+          <ul class="feature-list">
+            <li><span class="bullet">•</span> <strong>12 kênh RSS chính thống:</strong> CafeF, VnEconomy, Vietstock... cập nhật liên tục.</li>
+            <li><span class="bullet">•</span> <strong>Trích xuất thực thể AI:</strong> Tự nhận diện Tên người, Mã chứng khoán, Mối quan hệ doanh nghiệp và gán nhãn Loại sự kiện (Kết quả KD, Cổ tức, Nhân sự...).</li>
+            <li><span class="bullet">•</span> <strong>Chấm điểm &amp; Gộp trùng:</strong> Nhiều báo cùng viết 1 sự kiện ➡️ gộp thành 1 thông báo duy nhất; phân loại mức độ Cao/Trung bình/Thấp.</li>
+            <li><span class="bullet">•</span> <strong>Bản tin cá nhân hóa:</strong> Tin Cao đẩy ngay lập tức; tin Trung bình tổng hợp vào Bản tin cuối phiên 15h.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📚 Kho Tài liệu Nghiệp vụ (RAG APS)</div>
+          <ul class="feature-list">
+            <li><span class="bullet">•</span> <strong>Thu thập &amp; Cắt đoạn tự động:</strong> Cào và vector hóa toàn bộ tài liệu biểu phí, quy định giao dịch, mở tài khoản, FAQ từ apec.com.vn.</li>
+            <li><span class="bullet">•</span> <strong>Tìm kiếm ngữ nghĩa (Semantic Search):</strong> Sử dụng embedding chuyên biệt tiếng Việt để tìm đúng đoạn văn bản quy định.</li>
+            <li><span class="bullet">•</span> <strong>Trích dẫn điều khoản:</strong> Nêu rõ số điều, khoản và đường link văn bản gốc, giải thích rõ ràng cho nhà đầu tư mới.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Pillar 4 - Admin Portal & Security -->
+    <div class="slide" data-notes="Không chỉ có bot Telegram, hệ thống còn đi kèm Trang Web Quản trị hoàn chỉnh để duyệt người dùng, hậu kiểm dữ liệu tin tức và bảo vệ an toàn mạng.">
+      <div class="slide-header">
+        <div class="slide-badge">VẬN HÀNH &amp; AN TOÀN</div>
+        <h2 class="slide-title">Cổng Quản trị Web (Admin Portal) &amp; An toàn Dữ liệu</h2>
+        <div class="slide-subtitle">Trang web trực quan cho ban quản trị vận hành, hậu kiểm và giám sát hệ thống</div>
+      </div>
+
+      <div class="grid-3" style="flex: 1;">
+        <div class="card">
+          <div class="card-title">👥 Quản lý Người dùng &amp; Truy cập</div>
+          <div class="card-desc">
+            Quy trình duyệt 2 bước: Người dùng đăng ký qua Telegram ➡️ Quản trị viên duyệt trên Web ➡️ Mở quyền tương tác. Có quyền thu hồi truy cập và người dùng có quyền tự xóa dữ liệu cá nhân theo chuẩn GDPR.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔍 Hậu kiểm Đối tượng tin AI</div>
+          <div class="card-desc">
+            Màn hình chuyên biệt để chuyên viên kiểm duyệt các thực thể do AI tự bóc tách từ báo chí (sáp nhập đối tượng trùng, chuẩn hóa tên lãnh đạo, xác minh mối quan hệ giữa các công ty).
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🛡️ Phòng vệ An ninh Nhiều lớp</div>
+          <div class="card-desc">
+            Cơ chế bảo vệ tích hợp sẵn: Chống tấn công DNS Rebinding, chỉ nhận Host hợp lệ, ngăn chặn 100% SQL Injection, phân trang an toàn cho bảng dữ liệu lớn hàng trăm ngàn dòng.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Live Demo Script -->
+    <div class="slide" data-notes="Slide này là kịch bản demo: Mở Telegram và gõ 4 câu này theo đúng thứ tự. Sếp sẽ thấy trọn vẹn từ Dữ kiện -> Ngữ cảnh tiếp nối -> Phân tích có Guard -> Chặn tư vấn.">
+      <div class="slide-header">
+        <div class="slide-badge">TRÌNH DIỄN THỰC TẾ</div>
+        <h2 class="slide-title">Kịch bản Trình diễn Trực tiếp (Live Demo 3 Phút)</h2>
+        <div class="slide-subtitle">4 câu hỏi mẫu minh chứng trọn vẹn các năng lực cốt lõi của FinanceAssistant</div>
+      </div>
+
+      <div class="grid-2" style="flex: 1;">
+        <div class="card">
+          <div class="card-title">1. Dữ kiện &amp; Ngữ cảnh nhân vật (Nhánh xanh)</div>
+          <div class="chat-bubble">
+            <div class="chat-user">Khách: "Cường Đô la là ai?"</div>
+            <div class="chat-bot">Nguyễn Quốc Cường là Tổng giám đốc CTCP Quốc Cường Gia Lai (QCG).
+Tin gần nhất: QCG bổ nhiệm lại chức danh TGĐ...
+Nguồn: CafeF, 08:30 14/10/2026</div>
+          </div>
+          <div class="chat-bubble" style="margin-top: 8px;">
+            <div class="chat-user">Khách (tiếp nối): "đang nắm bao nhiêu cổ phiếu?"</div>
+            <div class="chat-bot">Nguyễn Quốc Cường đang nắm 537.500 cổ phiếu của QCG (tỷ lệ 0,2%).
+Nguồn: VNDirect, số liệu tới ngày 30/06/2024</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">2. Phân tích có Guard &amp; Chặn tư vấn (Nhánh vàng &amp; đỏ)</div>
+          <div class="chat-bubble">
+            <div class="chat-user">Khách: "Tại sao giá FPT giảm hôm nay?" (Nhánh vàng)</div>
+            <div class="chat-bot">FPT: 118.500 đ (giảm 1,8% trong phiên).
+Khối ngoại bán ròng 45 tỷ đ. Tin tức: Áp lực chốt lời nhóm công nghệ sau đà tăng...
+(Miễn trừ trách nhiệm: Dữ liệu tham khảo, không phải tư vấn)</div>
+          </div>
+          <div class="chat-bubble" style="margin-top: 8px;">
+            <div class="chat-user">Khách: "Có nên bắt đáy MWG không?" (Nhánh đỏ)</div>
+            <div class="chat-bot">Mình không đưa ra khuyến nghị mua bán cổ phiếu. Nếu bạn cần ý kiến chuyên môn, hãy bấm "Gặp môi giới" để kết nối chuyên viên APEC hỗ trợ.
+[Nút: 📞 Gặp môi giới] [Nút: 👍] [Nút: 👎]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Current Limitations -->
+    <div class="slide" data-notes="Sự trung thực và minh bạch kỹ thuật: Nói rõ giới hạn của bản Demo để sếp thấy chúng ta nắm rất chắc sản phẩm, từ đó mở đường sang các đề xuất phát triển ở slide sau.">
+      <div class="slide-header">
+        <div class="slide-badge">RANH GIỚI KỸ THUẬT</div>
+        <h2 class="slide-title">Ranh giới Hiện tại của Bản Thử nghiệm (PoC/Demo)</h2>
+        <div class="slide-subtitle">Minh bạch hiện trạng để xác định chính xác các hạng mục cần nâng cấp ở bước tiếp theo</div>
+      </div>
+
+      <div class="grid-2" style="flex: 1;">
+        <div class="card" style="border-left: 4px solid var(--warning);">
+          <div class="card-title">⏳ Dữ liệu &amp; Tài khoản</div>
+          <ul class="feature-list">
+            <li><span class="bullet" style="color:var(--warning);">!</span> <strong>Nguồn giá snapshot chậm:</strong> Dữ liệu giá hiện tại là ảnh chụp định kỳ, chưa phải luồng streaming tích tắc từ sở giao dịch (HOSE/HNX).</li>
+            <li><span class="bullet" style="color:var(--warning);">!</span> <strong>Danh mục mô phỏng:</strong> Danh mục tài sản hiện dựa trên 3 mẫu khách hàng giả lập (Thận trọng, Cân bằng, Tích cực), chưa kết nối Core tài khoản thực tế của khách hàng APEC.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--warning);">
+          <div class="card-title">🔌 Kênh kết nối &amp; Đội ngũ tư vấn</div>
+          <ul class="feature-list">
+            <li><span class="bullet" style="color:var(--warning);">!</span> <strong>Điều hướng Môi giới nội bộ:</strong> Nút "Gặp môi giới" hiện chuyển tin nhắn vào nhóm Telegram nội bộ, chưa kết nối trực tiếp vào hệ thống CRM / App Broker thật của APEC.</li>
+            <li><span class="bullet" style="color:var(--warning);">!</span> <strong>Phạm vi kênh tương tác:</strong> Hệ thống mới vận hành trên Telegram; chưa tích hợp vào Web App giao dịch hay Mobile App của APEC.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: 3 Strategic Options -->
+    <div class="slide" data-notes="Slide chiến lược xin ý kiến sếp: Đưa ra 3 kịch bản rõ ràng. Khuyến nghị sếp bấm nút chọn Kịch bản 1 (hoàn thiện nghiệm thu) và khởi động chuẩn bị Kịch bản 2 (Pilot với khách hàng thật).">
+      <div class="slide-header">
+        <div class="slide-badge">ĐỊNH HƯỚNG CHIẾN LƯỢC</div>
+        <h2 class="slide-title">Ba Kịch bản Phát triển Tiếp theo để Sếp Chỉ đạo</h2>
+        <div class="slide-subtitle">Lựa chọn hướng đi tối ưu dựa trên mục tiêu kinh doanh và nguồn lực phối hợp</div>
+      </div>
+
+      <div class="grid-3" style="flex: 1;">
+        <div class="card card-highlight">
+          <div style="font-size: 12px; color: var(--accent); font-weight: 700; text-transform: uppercase;">Lựa chọn 1 (Khuyến nghị làm ngay)</div>
+          <div class="card-title">Hoàn thiện &amp; Nghiệm thu Bản Demo</div>
+          <div class="card-desc">
+            - Đóng gói tính năng đang dở dang (`canh-bao-tin-nguong-rieng` - cá nhân hóa giờ nhận tin 15h/18h/ngay).<br>
+            - Mở rộng thêm 50 câu test nghiệp vụ thực tế từ đội ngũ Môi giới APEC.<br>
+            - Đóng gói tài liệu bàn giao kỹ thuật nghiệm thu giai đoạn 1.
+          </div>
+          <div style="margin-top: auto; font-size: 12px; color: #34d399; font-weight: 600;">⏱️ Thời gian: 1–2 tuần</div>
+        </div>
+
+        <div class="card">
+          <div style="font-size: 12px; color: var(--purple); font-weight: 700; text-transform: uppercase;">Lựa chọn 2 (Mục tiêu thương mại)</div>
+          <div class="card-title">Tiến lên Pilot với Khách hàng thật</div>
+          <div class="card-desc">
+            - Kết nối API Core Chứng khoán APEC: xem danh mục thật, lãi lỗ thật.<br>
+            - Đấu nối luồng "Gặp môi giới" vào CRM / Zalo OA của Broker chăm sóc tài khoản.<br>
+            - Nâng cấp luồng giá streaming thời gian thực.
+          </div>
+          <div style="margin-top: auto; font-size: 12px; color: #a855f7; font-weight: 600;">⏱️ Thời gian: 1–2 tháng (cần APEC cấp API)</div>
+        </div>
+
+        <div class="card">
+          <div style="font-size: 12px; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Lựa chọn 3 (Dài hạn)</div>
+          <div class="card-title">Nền tảng AI Đa kênh Doanh nghiệp</div>
+          <div class="card-desc">
+            - Đóng gói Chat widget nhúng thẳng vào Web giao dịch &amp; Mobile App APEC.<br>
+            - Chuyển đổi sang mô hình LLM On-premise / Private Cloud để bảo mật tuyệt đối dữ liệu tài chính.<br>
+            - Mở rộng tính năng phân tích BCTC chi tiết.
+          </div>
+          <div style="margin-top: auto; font-size: 12px; color: var(--text-dim); font-weight: 600;">⏱️ Thời gian: Quý 1 / 2027</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: Action Plan & Decisions Needed -->
+    <div class="slide" data-notes="Chốt lại 3 quyết định cụ thể xin sếp duyệt: 1) Duyệt nghiệm thu bản demo; 2) Bấm nút xúc tiến Kịch bản 2 với APEC; 3) Chỉ định đầu mối kỹ thuật làm việc với đối tác.">
+      <div class="slide-header">
+        <div class="slide-badge">KẾ HOẠCH HÀNH ĐỘNG</div>
+        <h2 class="slide-title">Đề xuất Quyết định Cần Sếp Phê duyệt &amp; Chỉ đạo</h2>
+        <div class="slide-subtitle">Các bước hành động cụ thể để hiện thực hóa giá trị sản phẩm</div>
+      </div>
+
+      <div class="grid-3" style="flex: 1;">
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div style="font-size: 28px; font-weight: 800; color: var(--accent);">01</div>
+          <div class="card-title">Phê duyệt Nghiệm thu Demo</div>
+          <div class="card-desc">
+            Xác nhận hoàn thành các tiêu chuẩn kỹ thuật của bản PoC/Demo hiện tại (141 requirement, test CI xanh, eval 99% đạt chuẩn). Cho phép hoàn tất tính năng ngưỡng tin riêng trong tuần này.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--purple);">
+          <div style="font-size: 28px; font-weight: 800; color: var(--purple);">02</div>
+          <div class="card-title">Bấm nút Triển khai Pilot</div>
+          <div class="card-desc">
+            Thông qua chủ trương tiến hành Giai đoạn 2 (Pilot với khách hàng thật của APEC theo Lựa chọn 2), định vị trợ lý AI là tính năng cạnh tranh khác biệt của APEC Securities.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--success);">
+          <div style="font-size: 28px; font-weight: 800; color: var(--success);">03</div>
+          <div class="card-title">Chỉ định Đầu mối Làm việc APEC</div>
+          <div class="card-desc">
+            Đề xuất Sếp chỉ định đầu mối cấp cao làm việc với Ban Lãnh đạo APEC để thống nhất cơ chế cấp API kết nối Core Trading, bảo mật thông tin và lịch trình thử nghiệm thực tế.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: Q&A / Closing -->
+    <div class="slide" data-notes="Kết thúc: Cảm ơn sếp và mở màn hình chuyển sang Live Demo hoặc trao đổi chi tiết.">
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <div class="slide-badge">KẾT THÚC BÁO CÁO</div>
+        <h1 style="font-size: 48px; font-weight: 800; color: #fff; margin: 16px 0 20px 0;">
+          Xin trân trọng cảm ơn Sếp!
+        </h1>
+        <p style="font-size: 18px; color: var(--text-muted); max-width: 680px; line-height: 1.6; margin-bottom: 34px;">
+          FinanceAssistant đã sẵn sàng cho buổi thử nghiệm trực tiếp và bước chuyển mình sang môi trường thực tế.
+        </p>
+
+        <div style="display: flex; gap: 16px;">
+          <button class="btn btn-primary" style="padding: 10px 22px; font-size: 15px;" onclick="goToSlide(7)">
+            ▶ Bắt đầu Live Demo (Slide 8)
+          </button>
+          <button class="btn" style="padding: 10px 22px; font-size: 15px;" onclick="goToSlide(9)">
+            📋 Xem 3 Kịch bản định hướng (Slide 10)
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="controls">
+    <div class="controls-left">
+      <button class="btn" id="btn-prev" onclick="prevSlide()" title="Phím mũi tên Trái hoặc PageUp">◀ Trước</button>
+      <button class="btn" id="btn-next" onclick="nextSlide()" title="Phím mũi tên Phải, Space hoặc PageDown">Tiếp ▶</button>
+      <span class="slide-counter" id="slide-indicator">Slide 01 / 12</span>
+    </div>
+
+    <div class="controls-right">
+      <button class="btn" id="btn-notes" onclick="toggleNotes()" title="Phím 'N'">📝 Ghi chú (Notes)</button>
+      <button class="btn" onclick="toggleFullScreen()" title="Phím 'F'">⛶ Toàn màn hình</button>
+    </div>
+  </div>
+
+  <!-- Speaker Notes Drawer -->
+  <div id="notes-panel">
+    <h4>Gợi ý thuyết trình cho Slide này:</h4>
+    <div id="notes-content">Nội dung ghi chú...</div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('slide-indicator');
+    const progressBar = document.getElementById('progress-bar');
+    const notesPanel = document.getElementById('notes-panel');
+    const notesContent = document.getElementById('notes-content');
+    let currentIndex = 0;
+
+    function updateSlide() {
+      slides.forEach((slide, idx) => {
+        if (idx === currentIndex) {
+          slide.classList.add('active');
+          const notes = slide.getAttribute('data-notes') || 'Không có ghi chú riêng cho slide này.';
+          notesContent.textContent = notes;
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      const total = slides.length;
+      const numStr = String(currentIndex + 1).padStart(2, '0');
+      const totalStr = String(total).padStart(2, '0');
+      indicator.textContent = `Slide ${numStr} / ${totalStr}`;
+      
+      const pct = ((currentIndex) / (total - 1)) * 100;
+      progressBar.style.width = `${pct}%`;
+    }
+
+    function nextSlide() {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < slides.length) {
+        currentIndex = idx;
+        updateSlide();
+      }
+    }
+
+    function toggleNotes() {
+      notesPanel.classList.toggle('open');
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(slides.length - 1);
+      } else if (e.key === 'n' || e.key === 'N') {
+        e.preventDefault();
+        toggleNotes();
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullScreen();
+      }
+    });
+
+    updateSlide();
+  </script>
+</body>
+</html>

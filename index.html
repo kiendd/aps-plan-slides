@@ -240,7 +240,7 @@
             <tr>
               <td><strong>1. Môi trường & Giao diện</strong></td>
               <td>Chạy độc lập trên Telegram bot cá nhân; người dùng cần có tài khoản Telegram riêng.</td>
-              <td><strong>Tích hợp trực tiếp vào Mobile App APS (iOS/Android)</strong>; duy trì kênh Telegram song song cho khách hàng cá nhân.</td>
+              <td><strong>Tích hợp trực tiếp vào Mobile App APS (iOS/Android)</strong>; kênh Telegram duy trì dưới dạng tùy chọn (Optional - do APS quyết định).</td>
             </tr>
             <tr>
               <td><strong>2. Tài khoản & Danh mục</strong></td>
@@ -290,12 +290,12 @@
             </tr>
             <tr>
               <td><strong>Việc 01: So sánh Đa Model LLM</strong></td>
-              <td>Thực hiện benchmark đối đầu các model (GPT-4o, Claude 3.5, Gemini, Llama 3), đo lường độ chính xác & văn phong.</td>
+              <td>Thực hiện benchmark đối đầu các model nguồn mở host bởi FPT Smart Cloud (Qwen, Saola, Llama,...), đo lường độ chính xác & văn phong.</td>
               <td>Cùng tham gia thẩm định chất lượng hành văn tiếng Việt, phê duyệt lựa chọn model tối ưu.</td>
             </tr>
             <tr>
               <td><strong>Việc 02: Tích hợp Kỹ thuật App</strong></td>
-              <td>Cung cấp REST API chat streaming, Webhook push sự kiện & module xác thực User Token.</td>
+              <td>Cung cấp REST API chat đồng bộ, Webhook push sự kiện & module xác thực User Token.</td>
               <td>Nhúng khung chat vào App APS, mở API xác thực JWT và mở API đọc danh mục thực tế.</td>
             </tr>
             <tr style="background: rgba(168,85,247,.05);">
@@ -306,11 +306,11 @@
             <tr>
               <td><strong>Việc 03: Đồng hành BA & Phân tích</strong></td>
               <td>Thiết kế prompt, cấu trúc đầu ra, hiệu chỉnh mô hình & thuật toán trích xuất insight tài chính.</td>
-              <td>Cử BA & Chuyên viên phân tích thẩm định câu trả lời, cung cấp góc nhìn nghiệp vụ & bộ câu hỏi mẫu.</td>
+              <td>Cử BA & Chuyên viên phân tích đồng hành xây dựng logic phân tích Vĩ mô / Thế giới tác động đến TTCK Việt Nam, thẩm định câu trả lời & bộ câu hỏi mẫu.</td>
             </tr>
             <tr>
               <td><strong>Việc 04: Chuẩn hóa Quy tắc Nghiệp vụ</strong></td>
-              <td>Hiện thực hóa luật Đèn giao thông, 3 hướng so sánh cổ phiếu và cơ chế chặn tin spam.</td>
+              <td>Hiện thực hóa cơ chế Đèn giao thông (phân luồng 3 nhánh: 🟢 Xanh tra cứu dữ kiện, 🟡 Vàng phân tích có kiểm duyệt, 🔴 Đỏ chặn tư vấn mua/bán), 3 hướng so sánh cổ phiếu và chính sách chặn spam.</td>
               <td>Khối Pháp chế & Nghiệp vụ chốt ranh giới tư vấn, lựa chọn tiêu chí so sánh và duyệt ngưỡng cảnh báo.</td>
             </tr>
             <tr>
@@ -320,7 +320,7 @@
             </tr>
             <tr>
               <td><strong>Việc 06: Mở rộng Kho tri thức</strong></td>
-              <td>Vector hóa dữ liệu (Embedding), tối ưu tìm kiếm RAG và trích dẫn chuẩn nguồn tài liệu.</td>
+              <td>Tự động hóa xử lý tri thức chuyên ngành, tối ưu công cụ tìm kiếm ngữ nghĩa và trích dẫn chuẩn nguồn tài liệu.</td>
               <td>Cung cấp tài liệu sản phẩm đặc thù (Abond, Asavings, CW) và báo cáo phân tích định kỳ.</td>
             </tr>
           </tbody>
@@ -344,7 +344,7 @@
           <ul>
             <li><span class="dot">•</span> <strong>Không bịa số (0% Hallucination):</strong> Model phải bám sát tuyệt đối dữ kiện tài chính được cung cấp, không tự tiện suy đoán hoặc làm tròn sai lệch con số.</li>
             <li><span class="dot">•</span> <strong>Tuân thủ Guardrails:</strong> Thử nghiệm khả năng vượt qua bộ lọc số lạ và bộ lọc cụm từ cấm độc lập của hệ thống.</li>
-            <li><span class="dot">•</span> <strong>Các model thử nghiệm:</strong> GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, Llama 3 / Qwen mã nguồn mở.</li>
+            <li><span class="dot">•</span> <strong>Các model thử nghiệm:</strong> Các mô hình mã nguồn mở được host bởi FPT Smart Cloud như Qwen, Saola, Llama,...</li>
           </ul>
         </div>
         <div class="card">
@@ -360,13 +360,14 @@
           <div class="tag-blue">Kinh tế & Hiệu năng</div>
           <h3>3. Tốc độ & Chi phí Quy mô</h3>
           <ul>
-            <li><span class="dot">•</span> <strong>Độ trễ thấp (Low Latency):</strong> Tốc độ sinh chữ phản hồi (First Token Latency) dưới 1,5 giây để trải nghiệm chat trên Mobile App không bị gián đoạn.</li>
+            <li><span class="dot">•</span> <strong>Phản hồi tức thì với tra cứu dữ liệu:</strong> Độ trễ &lt; 1,5 giây cho các truy vấn trực tiếp (giá thị trường, chỉ số cơ bản, FAQ định sẵn bằng code).</li>
+            <li><span class="dot">•</span> <strong>Thời gian phản hồi phân tích (LLM):</strong> Độ trễ toàn trình 2,5 – 4,0 giây cho các câu hỏi tổng hợp, phân tích chuyên sâu (bao gồm RAG, tổng hợp ngữ cảnh và kiểm duyệt Guardrails).</li>
             <li><span class="dot">•</span> <strong>Tối ưu chi phí Token:</strong> Đánh giá chi phí vận hành trên mỗi lượt hỏi đáp, giúp APS mở rộng phục vụ hàng trăm ngàn nhà đầu tư với chi phí hiệu quả nhất.</li>
-            <li><span class="dot">•</span> <strong>Sẵn sàng Private/Hybrid:</strong> Đánh giá phương án chạy mô hình mã nguồn mở trên hạ tầng riêng (On-premise) nếu APS yêu cầu.</li>
+            <li><span class="dot">•</span> <strong>Hạ tầng FPT Smart Cloud:</strong> Vận hành hoàn toàn trên hạ tầng FPT Smart Cloud, bảo đảm an toàn dữ liệu và quyền tự chủ công nghệ.</li>
           </ul>
         </div>
       </div>
-    `, "Nhấn mạnh: FPT chủ động thực hiện bài toán so sánh kỹ thuật này để bảo đảm sản phẩm không bị phụ thuộc vào một nhà cung cấp LLM duy nhất, đồng thời đem lại chất giọng tài chính hay nhất cho khách hàng của APS.");
+    `, "Nhấn mạnh: Hệ thống sử dụng các mô hình mã nguồn mở host bởi FPT Smart Cloud (Qwen, Saola, Llama,...), vừa đảm bảo an toàn bảo mật dữ liệu, vừa mang lại chất giọng tài chính sắc sảo và chi phí vận hành tối ưu.");
 
     // SLIDE 5: VIỆC 02 (FPT CHỦ TRÌ) - TÍCH HỢP KỸ THUẬT & HẠ TẦNG APP
     addSlide(`
@@ -376,15 +377,15 @@
           <span class="badge phase">Việc 02 · Kiến trúc Kỹ thuật</span>
         </div>
         <h2 class="slide-title">Phương án Tích hợp App: REST API + Webhook + Token Auth</h2>
-        <p class="slide-subtitle">Thiết kế module hóa tối ưu, giúp đội ngũ Mobile App của APS đấu nối nhanh chóng, bảo mật thông tin tài khoản tuyệt đối và duy trì song song kênh Telegram.</p>
+        <p class="slide-subtitle">Thiết kế module hóa tối ưu, giúp đội ngũ Mobile App của APS đấu nối nhanh chóng, bảo mật thông tin tài khoản tuyệt đối và linh hoạt lựa chọn kênh triển khai.</p>
       </div>
       <div class="grid-2x2">
         <div class="card" style="border-left: 4px solid var(--accent);">
           <div class="tag-blue">Giao tiếp Hỏi đáp 2 chiều</div>
-          <h3>1. REST API & SSE Streaming</h3>
+          <h3>1. REST API Chat</h3>
           <p>Mobile App APS gọi endpoint <code>POST /api/v1/chat/message</code> kèm JWT Token.</p>
           <ul>
-            <li><span class="dot">•</span> <strong>Streaming phản hồi (SSE):</strong> Chữ chạy mượt mà theo thời gian thực (typing effect), tối ưu trải nghiệm đọc trên điện thoại di động.</li>
+            <li><span class="dot">•</span> <strong>Phản hồi trọn gói (Standard HTTP):</strong> Trả lời hoàn chỉnh trong một payload, đơn giản hóa tối đa tích hợp phía client Mobile App và bot chat.</li>
             <li><span class="dot">•</span> <strong>Cấu trúc JSON chuẩn hóa:</strong> Trả về các khối rõ ràng (tiêu đề, dữ kiện gạch đầu dòng, trích dẫn nguồn và gợi ý nút bấm).</li>
           </ul>
         </div>
@@ -407,16 +408,16 @@
           </ul>
         </div>
         <div class="card" style="border-left: 4px solid #f59e0b;">
-          <div style="color: #fbbf24; background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; width: fit-content;">Đa kênh đồng bộ</div>
-          <h3>4. Duy trì Song song Kênh Telegram</h3>
-          <p>Cung cấp trải nghiệm đa kênh liền mạch cho khách hàng thích nhận tin qua Telegram.</p>
+          <div style="color: #fbbf24; background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; font-weight: 600; width: fit-content;">Tùy chọn · Chờ APS quyết định</div>
+          <h3>4. Kênh Telegram (Optional)</h3>
+          <p>Phương án mở rộng tùy chọn nếu APS muốn tiếp cận khách hàng đa kênh hoặc độc quyền hoàn toàn trên App.</p>
           <ul>
-            <li><span class="dot">•</span> <strong>Liên kết 1 chạm:</strong> Khách quét mã QR trên App APS để liên kết với bot Telegram.</li>
-            <li><span class="dot">•</span> <strong>Đồng bộ xuyên suốt:</strong> Danh mục thực, cảnh báo giá và đăng ký tin tức được cập nhật đồng nhất trên cả hai kênh.</li>
+            <li><span class="dot">•</span> <strong>Nếu duy trì Telegram:</strong> Khách quét mã QR trên App APS để liên kết với bot Telegram, đồng bộ cảnh báo và danh mục.</li>
+            <li><span class="dot">•</span> <strong>Nếu ưu tiên "Độc quyền App":</strong> Đóng kênh Telegram bên ngoài, dồn toàn bộ lưu lượng và trải nghiệm giữ chân khách hàng vào App APS.</li>
           </ul>
         </div>
       </div>
-    `, "Nhấn mạnh với CTO/Đội kỹ thuật APS: Kiến trúc REST API + Webhook là chuẩn công nghiệp quen thuộc nhất, giảm thiểu tối đa khối lượng công việc cho đội ngũ App của APS.");
+    `, "Nhấn mạnh: Việc duy trì kênh Telegram là hoàn toàn tùy chọn (Optional) phụ thuộc vào chiến lược của APS — nếu APS muốn giữ chân khách hàng độc quyền trên Mobile App thì sẵn sàng đóng kênh ngoài.");
 
     // SLIDE 6: VIỆC 03 (APS CHỦ TRÌ) - ĐỒNG HÀNH BA & PHÂN TÍCH
     addSlide(`
@@ -426,15 +427,16 @@
           <span class="badge phase">Việc 03 · Đột phá Nghiệp vụ</span>
         </div>
         <h2 class="slide-title">Đồng hành BA & Chuyên gia Phân tích Chứng khoán APS</h2>
-        <p class="slide-subtitle">Đề xuất mời đội ngũ BA và Chuyên viên nghiên cứu phân tích của APS trực tiếp tham gia nâng tầm chất lượng câu trả lời từ mức 'tra cứu thông tin' lên tầm 'tư vấn chuyên sâu sắc sảo'.</p>
+        <p class="slide-subtitle">Đề xuất mời đội ngũ BA và Chuyên viên nghiên cứu phân tích của APS trực tiếp tham gia nâng tầm chất lượng câu trả lời từ mức 'tra cứu thông tin' lên tầm 'tư vấn chuyên sâu sắc sảo', đặc biệt là năng lực bóc tách tác động Vĩ mô & Thế giới đến thị trường Việt Nam.</p>
       </div>
       <div class="grid-3">
         <div class="card">
           <div class="tag-purple">Insight tài chính sâu</div>
-          <h3>1. Nâng cấp Câu trả lời</h3>
+          <h3>1. Nâng cấp Câu trả lời & Vĩ mô</h3>
           <ul>
-            <li><span class="dot">•</span> <strong>Giải thích biến động:</strong> Không chỉ nêu tăng/giảm thuần túy; bổ sung góc nhìn về áp lực bán ròng khối ngoại, biến động thanh khoản so với MA20, hay tin tức vĩ mô tác động chuỗi giá trị.</li>
-            <li><span class="dot">•</span> <strong>Văn phong chuyên gia:</strong> Hiệu chỉnh phong cách trò chuyện chuẩn xác thuật ngữ tài chính (kháng cự/hỗ trợ, định giá P/E forward, biên lợi nhuận ròng).</li>
+            <li><span class="dot">•</span> <strong>Phân tích Vĩ mô & Thế giới tác động TTCK VN:</strong> Nhờ chuyên gia APS cố vấn khung logic liên kết các sự kiện quốc tế (lãi suất Fed, tỷ giá USD/VND, giá dầu, địa chính trị, dòng vốn ngoại) với các nhóm ngành và cổ phiếu cụ thể tại Việt Nam.</li>
+            <li><span class="dot">•</span> <strong>Giải thích biến động sâu:</strong> Không chỉ nêu tăng/giảm thuần túy; bóc tách nguyên nhân từ thanh khoản, khối ngoại bán ròng, chuỗi giá trị ngành và bối cảnh vĩ mô.</li>
+            <li><span class="dot">•</span> <strong>Văn phong chuyên gia:</strong> Chuẩn hóa thuật ngữ tài chính sắc bén (định giá P/E forward, kháng cự/hỗ trợ, chu kỳ kinh tế, biên lợi nhuận ròng).</li>
           </ul>
         </div>
         <div class="card">
@@ -454,7 +456,7 @@
           </ul>
         </div>
       </div>
-    `, "Nhấn mạnh: AI chỉ thông minh khi được nuôi dưỡng bằng tri thức của các chuyên gia thực thụ. Đề xuất BA và Nghiệp vụ APS tham gia là chìa khóa để bot có chất riêng của APEC/APS, vượt trội hơn hẳn các bot chung chung trên thị trường.");
+    `, "Nhấn mạnh: AI chỉ thông minh khi được nuôi dưỡng bằng tri thức của các chuyên gia thực thụ. Đặc biệt, việc bóc tách biến động thị trường Việt Nam dưới lăng kính Vĩ mô và Thế giới cần chuyên gia phân tích APS đồng hành đóng gói phương pháp luận và kiểm định.");
 
     // SLIDE 7: VIỆC 04 (APS CHỦ TRÌ) - CHUẨN HÓA QUY TẮC NGHIỆP VỤ & TƯ VẤN
     addSlide(`
@@ -468,12 +470,12 @@
       </div>
       <div class="grid-3">
         <div class="card">
-          <div class="tag-green">Đèn giao thông & Khuyến nghị</div>
-          <h3>Ranh giới Tư vấn</h3>
-          <p>Hiện bot cấm 100% khuyến nghị mua/bán. Đề xuất 2 định hướng để APS quyết định:</p>
+          <div class="tag-green">🟢 Xanh · 🟡 Vàng · 🔴 Đỏ</div>
+          <h3>Ranh giới Tư vấn (Đèn giao thông)</h3>
+          <p><strong>Cơ chế Đèn giao thông</strong> phân loại câu hỏi thành 3 luồng: 🟢 <em>Nhánh Xanh</em> (tra cứu dữ kiện thuần), 🟡 <em>Nhánh Vàng</em> (giải thích biến động, có bộ lọc số lạ), và 🔴 <em>Nhánh Đỏ</em> (xin khuyến nghị mua/bán). Hiện bot cấm 100% tự ý tư vấn ở Nhánh Đỏ. Đề xuất APS quyết định chính sách:</p>
           <ul>
-            <li><span class="dot">•</span> <strong>Lựa chọn A (An toàn tuyệt đối):</strong> Giữ nguyên từ chối tư vấn độc lập; AI chỉ đóng vai trò cung cấp dữ kiện thuần và chuyển hướng sang Môi giới.</li>
-            <li><span class="dot">•</span> <strong>Lựa chọn B (Dẫn nguồn APS Research):</strong> Cho phép bot trích dẫn nguyên văn khuyến nghị (Target price, Khả quan/Trung lập) nếu mã đó có Báo cáo phân tích chính thức của APS.</li>
+            <li><span class="dot">•</span> <strong>Lựa chọn A (An toàn tuyệt đối):</strong> Giữ nguyên từ chối tư vấn độc lập ở Nhánh Đỏ; AI chỉ cung cấp dữ kiện thuần và chuyển hướng sang Môi giới người thật.</li>
+            <li><span class="dot">•</span> <strong>Lựa chọn B (Dẫn nguồn APS Research):</strong> Cho phép bot trích dẫn nguyên văn khuyến nghị chính thức (Target price, Khả quan/Trung lập) nếu mã đó có Báo cáo phân tích do APS phát hành.</li>
           </ul>
         </div>
         <div class="card">
@@ -497,7 +499,7 @@
           </ul>
         </div>
       </div>
-    `, "Làm rõ với Pháp chế APS: FPT cung cấp sẵn các chốt chặn an toàn (Guardrails), APS là người nắm quyền quyết định bật/tắt hoặc điều chỉnh ranh giới tư vấn cho phù hợp với định vị thương hiệu.");
+    `, "Làm rõ với Pháp chế APS: Cơ chế Đèn giao thông (🟢 Xanh: tra cứu dữ kiện - 🟡 Vàng: phân tích có kiểm duyệt Guardrails - 🔴 Đỏ: chặn tư vấn mua bán vi phạm pháp lý). FPT cung cấp sẵn các chốt chặn này, APS là người nắm quyền quyết định điều chỉnh ranh giới ở Nhánh Đỏ cho phù hợp với định vị.");
 
     // SLIDE 8: VIỆC 05 (APS CHỦ TRÌ) - ĐẤU NỐI MÔI GIỚI THẬT
     addSlide(`
@@ -545,17 +547,17 @@
           <span class="badge phase">Việc 06 · Cơ sở Tri thức</span>
         </div>
         <h2 class="slide-title">Chuẩn hóa & Mở rộng Kho Tri thức Sản phẩm APEC</h2>
-        <p class="slide-subtitle">Mở rộng cơ sở dữ liệu tri thức RAG từ các thông tin chung sang toàn bộ hệ sinh thái sản phẩm tài chính chuyên biệt của APEC.</p>
+        <p class="slide-subtitle">Mở rộng cơ sở dữ liệu tri thức nghiệp vụ từ các thông tin chung sang toàn bộ hệ sinh thái sản phẩm tài chính chuyên biệt của APEC.</p>
       </div>
       <div class="grid-2">
         <div class="card">
           <div class="tag-blue">Hiện trạng Dữ liệu (Đã có)</div>
           <h3>Kho Tài liệu Hiện tại</h3>
-          <p>Hệ thống RAG vector đã được huấn luyện và đối soát với:</p>
+          <p>Hệ thống trợ lý AI đã được số hóa hoàn chỉnh và đối soát chính xác với:</p>
           <ul>
-            <li><span class="dot">•</span> <strong>49 tài liệu nguồn</strong> bóc tách thành <strong>509 đoạn cắt (chunks)</strong> lưu trong Postgres Vector DB.</li>
-            <li><span class="dot">•</span> Thu thập tự động định kỳ từ website chính thức <code>apec.com.vn</code>: Trung tâm hỗ trợ, Câu hỏi thường gặp FAQ, Kiến thức chung, Hướng dẫn giao dịch cổ phiếu / phái sinh.</li>
-            <li><span class="dot">•</span> Bộ văn bản quy phạm pháp luật: Luật Chứng khoán, Nghị định 155/2020/NĐ-CP (trích dẫn chuẩn xác theo từng Điều, khoản).</li>
+            <li><span class="dot">•</span> <strong>Cơ sở tri thức chuẩn hóa:</strong> Toàn bộ kho tài liệu nghiệp vụ, hướng dẫn và quy định của APS đã được xử lý và kiểm soát thông tin an toàn.</li>
+            <li><span class="dot">•</span> <strong>Dữ liệu cổng thông tin <code>apec.com.vn</code>:</strong> Trung tâm hỗ trợ, Câu hỏi thường gặp FAQ, Kiến thức chung, Hướng dẫn giao dịch cổ phiếu / phái sinh.</li>
+            <li><span class="dot">•</span> <strong>Bộ văn bản quy phạm pháp luật:</strong> Luật Chứng khoán, Nghị định 155/2020/NĐ-CP (trích dẫn chuẩn xác theo từng Điều, khoản).</li>
           </ul>
         </div>
         <div class="card">
@@ -564,16 +566,16 @@
           <p>Đề xuất APS cử đầu mối cung cấp các bộ tài liệu nghiệp vụ nội bộ:</p>
           <ul>
             <li><span class="dot">•</span> <strong>Chính sách Margin & Biểu phí:</strong> Bảng lãi suất margin các gói T+, phí giao dịch phái sinh, danh mục chứng khoán được phép ký quỹ cập nhật.</li>
-            <li><span class="dot">•</span> <strong>Sản phẩm tài chính APEC:</strong> Bộ tài liệu chính thức về Trái phiếu Abond, chứng quyền (CW), tài khoản tích lũy tiền gửi Asavings, hợp đồng hợp tác đầu tư.</li>
+            <li><span class="dot">•</span> <strong>Sản phẩm tài chính APEC:</strong> Bộ tài liệu chính thức về Trái phiếu doanh nghiệp (Abond), Tích lũy tối ưu tiền nhàn rỗi (Asavings), Chứng quyền có bảo đảm (CW) và Hợp đồng hợp tác đầu tư.</li>
             <li><span class="dot">•</span> <strong>Báo cáo Nghiên cứu Phân tích (APS Research):</strong> Nạp các bản tin chiến lược tháng/quý, báo cáo định giá doanh nghiệp để bot trích dẫn khi khách hỏi phân tích sâu.</li>
           </ul>
         </div>
       </div>
       <div class="card" style="background: rgba(56,189,248,.06); border-color: rgba(56,189,248,.3); padding: 14px 18px; margin-top: 14px;">
-        <h4 style="color:var(--accent); margin-bottom:2px;">⚡ Công nghệ RAG sẵn sàng:</h4>
-        <p style="color:var(--text); font-size:13.5px; margin:0;">Hệ thống đã hoàn thiện 100% cơ chế bóc tách vector và bộ lọc chặn số lạ. APS chỉ cần cung cấp file tài liệu (PDF/Word), dữ liệu sẽ được nạp và kiểm thử hoàn tất trong vòng 24 giờ.</p>
+        <h4 style="color:var(--accent); margin-bottom:2px;">⚡ Năng lực Xử lý Tri thức Sẵn sàng:</h4>
+        <p style="color:var(--text); font-size:13.5px; margin:0;">Hệ thống lõi của FPT đã hoàn thiện 100% khả năng tiếp nhận và kiểm định dữ liệu an toàn. APS chỉ cần cung cấp tài liệu nghiệp vụ (PDF/Word), dữ liệu mới sẽ được tích hợp và sẵn sàng vận hành trong vòng 24 giờ.</p>
       </div>
-    `, "Khẳng định: Năng lực RAG của FPT đã hoàn thiện 100% về mặt công nghệ (có bộ chặn số lạ, trích dẫn link nguồn). Khi APS rót thêm tài liệu sản phẩm độc quyền, bot sẽ lập tức giải đáp vanh vách mọi chính sách của công ty.");
+    `, "Khẳng định: Năng lực xử lý tri thức tài chính của FPT đã hoàn thiện 100%. Khi APS bổ sung tài liệu các sản phẩm sinh lời cốt lõi như Trái phiếu Abond, Tích lũy tiền gửi Asavings, Chứng quyền CW..., trợ lý AI sẽ lập tức hỗ trợ bán chéo và giải đáp chi tiết điều khoản cho khách hàng.");
 
     // SLIDE 10: KẾ HOẠCH TRIỂN KHAI & HÀNH ĐỘNG
     addSlide(`
